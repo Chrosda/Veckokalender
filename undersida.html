@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marabou veckoerbjudande</title>
+    <link rel="icon" href="data:,">
+    <style>
+        :root {
+            --page-yellow: #ffd84d;
+            --page-yellow-soft: #fff2b8;
+            --page-cream: #fff8e6;
+            --page-red: #c9002b;
+            --page-blue: #17428c;
+            --chocolate: #5a2d1d;
+            --chocolate-dark: #2d140d;
+            --page-shadow: 0 34px 90px rgba(90, 45, 29, 0.22);
+            --body-font: "Aptos", "Segoe UI", Arial, sans-serif;
+            --display-font: "Cooper Black", "Cooper Std Black", "Bookman Old Style", Georgia, serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: var(--body-font);
+            color: var(--chocolate);
+            background:
+                radial-gradient(circle at 16% 12%, rgba(255, 248, 230, 0.82), transparent 28%),
+                radial-gradient(circle at 86% 18%, rgba(201, 0, 43, 0.16), transparent 24%),
+                linear-gradient(135deg, #ffe982 0%, #ffd84d 52%, #f1b739 100%);
+        }
+
+        .page {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 28px;
+            background:
+                linear-gradient(18deg, rgba(90, 45, 29, 0.12) 0 13%, transparent 13% 64%, rgba(201, 0, 43, 0.08) 64% 78%, transparent 78%),
+                radial-gradient(circle at 5% 72%, rgba(23, 66, 140, 0.1), transparent 28%);
+        }
+
+        .campaign-shell {
+            position: relative;
+            width: min(1120px, 100%);
+            display: grid;
+            grid-template-columns: minmax(0, 1.02fr) minmax(320px, 0.78fr);
+            gap: 26px;
+            align-items: stretch;
+            padding: clamp(22px, 4vw, 36px);
+            border: 1px solid rgba(90, 45, 29, 0.16);
+            border-radius: 30px;
+            background:
+                radial-gradient(circle at 76% 22%, rgba(255, 255, 255, 0.44), transparent 28%),
+                linear-gradient(145deg, rgba(255, 248, 230, 0.94), rgba(255, 232, 130, 0.78)),
+                rgba(255, 248, 230, 0.86);
+            box-shadow: var(--page-shadow);
+            overflow: hidden;
+        }
+
+        .campaign-shell::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(115deg, transparent 0 38%, rgba(255, 255, 255, 0.32) 48%, transparent 60%),
+                radial-gradient(circle at 12% 88%, rgba(201, 0, 43, 0.12), transparent 26%),
+                repeating-linear-gradient(90deg, rgba(90, 45, 29, 0.025) 0 1px, transparent 1px 84px);
+            opacity: 0.9;
+            pointer-events: none;
+        }
+
+        .campaign-copy,
+        .floating-block {
+            position: relative;
+            z-index: 1;
+        }
+
+        .campaign-copy {
+            display: grid;
+            align-content: center;
+            gap: 20px;
+            min-width: 0;
+        }
+
+        .brand {
+            display: grid;
+            align-items: center;
+            gap: 10px;
+            min-height: 58px;
+            width: fit-content;
+            padding: 14px 18px 12px;
+            border: 1px solid rgba(90, 45, 29, 0.14);
+            border-radius: 18px;
+            background: rgba(255, 248, 230, 0.76);
+            box-shadow: 0 18px 36px rgba(90, 45, 29, 0.1);
+        }
+
+        .brand img {
+            width: min(260px, 78vw);
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 8px 18px rgba(90, 45, 29, 0.12));
+        }
+
+        .partner-note {
+            font-size: 0.74rem;
+            font-weight: 850;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(90, 45, 29, 0.68);
+        }
+
+        .eyebrow {
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--page-red);
+        }
+
+        h1 {
+            max-width: 690px;
+            font-family: var(--display-font);
+            font-size: clamp(2.35rem, 6vw, 5rem);
+            line-height: 0.92;
+            color: var(--page-blue);
+            letter-spacing: 0;
+        }
+
+        .lead {
+            max-width: 640px;
+            font-size: clamp(1.04rem, 2vw, 1.34rem);
+            line-height: 1.5;
+            color: rgba(90, 45, 29, 0.8);
+        }
+
+        .body-copy {
+            max-width: 620px;
+            font-size: 1rem;
+            line-height: 1.65;
+            color: rgba(90, 45, 29, 0.76);
+        }
+
+        .campaign-facts {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 2px;
+        }
+
+        .fact {
+            min-height: 92px;
+            padding: 15px;
+            border: 1px solid rgba(90, 45, 29, 0.14);
+            border-radius: 18px;
+            background: rgba(255, 248, 230, 0.64);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.58);
+        }
+
+        .fact strong {
+            display: block;
+            margin-bottom: 6px;
+            font-family: var(--display-font);
+            font-size: 1.45rem;
+            line-height: 1;
+            color: var(--page-red);
+        }
+
+        .fact span {
+            font-size: 0.84rem;
+            line-height: 1.35;
+            color: rgba(90, 45, 29, 0.74);
+        }
+
+        .floating-block {
+            align-self: center;
+            display: grid;
+            gap: 18px;
+            padding: 22px;
+            border: 1px solid rgba(90, 45, 29, 0.16);
+            border-radius: 26px;
+            background:
+                linear-gradient(180deg, rgba(255, 248, 230, 0.92), rgba(255, 236, 152, 0.72)),
+                rgba(255, 248, 230, 0.88);
+            backdrop-filter: blur(8px);
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.62),
+                0 28px 56px rgba(90, 45, 29, 0.18);
+            animation: float-panel 5.8s ease-in-out infinite;
+            overflow: hidden;
+        }
+
+        .floating-block::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.34), transparent);
+            transform: translateX(-72%);
+            animation: form-sheen 6.2s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .floating-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+        }
+
+        .floating-title p {
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(90, 45, 29, 0.68);
+        }
+
+        .floating-title strong {
+            display: block;
+            margin-top: 5px;
+            font-family: var(--display-font);
+            font-size: 1.45rem;
+            color: var(--page-blue);
+        }
+
+        .status-pill {
+            flex: 0 0 auto;
+            padding: 8px 11px;
+            border-radius: 999px;
+            background: var(--page-yellow);
+            color: var(--chocolate-dark);
+            font-size: 0.78rem;
+            font-weight: 900;
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+        }
+
+        .signup-fields {
+            display: grid;
+            gap: 12px;
+        }
+
+        .field {
+            display: grid;
+            gap: 7px;
+        }
+
+        label {
+            font-size: 0.76rem;
+            font-weight: 850;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(90, 45, 29, 0.72);
+        }
+
+        input {
+            width: 100%;
+            min-height: 48px;
+            padding: 12px 14px;
+            border: 1px solid rgba(90, 45, 29, 0.16);
+            border-radius: 15px;
+            background: rgba(255, 248, 230, 0.98);
+            color: var(--chocolate-dark);
+            font: inherit;
+            font-size: 0.98rem;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.62);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--page-red);
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.72),
+                0 0 0 4px rgba(201, 0, 43, 0.14);
+        }
+
+        .offer-card {
+            display: grid;
+            gap: 8px;
+            padding: 16px;
+            border-radius: 18px;
+            background: rgba(255, 216, 77, 0.48);
+            border: 1px solid rgba(90, 45, 29, 0.12);
+        }
+
+        .offer-card p:first-child {
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--page-red);
+        }
+
+        .offer-card p:last-child {
+            font-size: 1rem;
+            line-height: 1.45;
+            color: var(--chocolate);
+        }
+
+        .campaign-note {
+            display: grid;
+            gap: 8px;
+            font-size: 0.9rem;
+            line-height: 1.45;
+            color: rgba(90, 45, 29, 0.74);
+        }
+
+        .campaign-note span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .campaign-note span::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            flex: 0 0 auto;
+            border-radius: 999px;
+            background: var(--page-red);
+            box-shadow: 0 0 14px rgba(201, 0, 43, 0.24);
+        }
+
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .cta,
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 50px;
+            padding: 12px 20px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 850;
+            transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        .cta {
+            background: var(--page-red);
+            color: #fff;
+            box-shadow: 0 14px 28px rgba(201, 0, 43, 0.2);
+        }
+
+        .back-link {
+            border: 1px solid rgba(90, 45, 29, 0.16);
+            background: rgba(255, 248, 230, 0.6);
+            color: var(--chocolate);
+        }
+
+        .cta:hover,
+        .back-link:hover {
+            transform: translateY(-5px) scale(1.025);
+            box-shadow:
+                0 18px 32px rgba(0, 0, 0, 0.28),
+                0 0 24px rgba(217, 255, 99, 0.18);
+        }
+
+        .back-link:hover {
+            border-color: rgba(217, 255, 99, 0.38);
+            background: rgba(248, 241, 232, 0.14);
+        }
+
+        @keyframes float-panel {
+            0%, 100% { transform: translateY(0) rotate(-0.3deg); }
+            50% { transform: translateY(-12px) rotate(0.4deg); }
+        }
+
+        @keyframes form-sheen {
+            0%, 44% { transform: translateX(-72%); }
+            60%, 100% { transform: translateX(72%); }
+        }
+
+        @media (max-width: 900px) {
+            .page {
+                padding: 16px;
+            }
+
+            .campaign-shell {
+                grid-template-columns: 1fr;
+                padding: 22px 18px;
+                border-radius: 24px;
+            }
+
+            .campaign-facts {
+                grid-template-columns: 1fr;
+            }
+
+            .floating-block {
+                animation: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .floating-block,
+            .floating-block::before {
+                animation: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <article class="campaign-shell">
+            <section class="campaign-copy">
+                <div class="brand">
+                    <img src="marabou-logo-transparent.png" alt="Marabou">
+                    <span class="partner-note">I samarbete med Clearon</span>
+                </div>
+                <p class="eyebrow" id="eyebrow">Marabou julkalender</p>
+                <h1 id="title">God Jul fr&aring;n Marabou</h1>
+                <p class="lead" id="lead">Bakom veckans lucka finns ett juligt Marabou-erbjudande.</p>
+                <p class="body-copy" id="body-copy">Marabou &ouml;nskar dig en riktigt god jul med en ny lucka att &ouml;ppna f&ouml;r varje adventsvecka. Varje lucka inneh&aring;ller 2000 digitala kuponger.</p>
+                <div class="campaign-facts" aria-label="Kampanjinformation">
+                    <article class="fact">
+                        <strong>2000</strong>
+                        <span>Kuponger i veckans lucka</span>
+                    </article>
+                    <article class="fact">
+                        <strong>7d</strong>
+                        <span>luckan ligger i fokus under veckan</span>
+                    </article>
+                    <article class="fact">
+                        <strong>SMS</strong>
+                        <span>Kupongen skickas via SMS och kan l&auml;ggas in i mobil pl&aring;nbok</span>
+                    </article>
+                </div>
+            </section>
+
+            <aside class="floating-block" aria-label="Anmalan och erbjudande">
+                <div class="floating-title">
+                    <div>
+                        <p>Bakom veckoluckan</p>
+                        <strong id="offer-heading">Veckans inneh&aring;ll</strong>
+                    </div>
+                    <span class="status-pill">Live</span>
+                </div>
+                <form class="signup-fields" id="signup-preview">
+                    <div class="field">
+                        <label for="name">Namn</label>
+                        <input id="name" name="name" type="text" autocomplete="name" placeholder="Ditt namn">
+                    </div>
+                    <div class="field">
+                        <label for="phone">Telefonnummer</label>
+                        <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="070-123 45 67">
+                    </div>
+                    <div class="field">
+                        <label for="email">E-post</label>
+                        <input id="email" name="email" type="email" autocomplete="email" placeholder="namn@example.se">
+                    </div>
+                </form>
+                <section class="offer-card">
+                    <p>Veckans erbjudande</p>
+                    <p id="offer-copy">Veckans inneh&aring;ll</p>
+                </section>
+                <div class="campaign-note">
+                    <span>Erbjudandet g&auml;ller de f&ouml;rsta 2000 som skriver upp sig.</span>
+                    <span>I samarbete med Clearon</span>
+                </div>
+                <div class="cta-row">
+                    <a class="cta" href="#" id="cta-link">Ta del av erbjudandet</a>
+                    <a class="back-link" href="index.html">Tillbaka till kalendern</a>
+                </div>
+            </aside>
+        </article>
+    </main>
+
+    <script>
+        const weeks = {
+            1: {
+                label: "Chokladstarten",
+                date: "1-7 december",
+                title: "Vecka 1",
+                lead: "God Jul fr&aring;n Marabou. F&ouml;rsta advent bjuder p&aring; en mjuk chokladstart.",
+                body: "Marabou &ouml;ppnar julkalendern med ett erbjudande f&ouml;r dig som vill g&ouml;ra december lite godare.",
+                offer: "20 kr rabatt p&aring; valfri Marabou chokladkaka. 2000 kuponger finns i luckan.",
+                ctaHref: "erbjudande.html"
+            },
+            2: {
+                label: "Fikapausen",
+                date: "8-14 december",
+                title: "Vecka 2",
+                lead: "God Jul fr&aring;n Marabou. Andra advent &auml;r gjord f&ouml;r fikapausen.",
+                body: "Ta en paus i julf&ouml;rberedelserna och &ouml;ppna veckans lucka fr&aring;n Marabou.",
+                offer: "K&ouml;p 2 Marabou produkter och f&aring; en kupong tillbaka. 2000 kuponger finns i luckan.",
+                ctaHref: "erbjudande.html"
+            },
+            3: {
+                label: "Julklappstipset",
+                date: "15-21 december",
+                title: "Vecka 3",
+                lead: "God Jul fr&aring;n Marabou. Tredje advent handlar om den lilla chokladpresenten.",
+                body: "Marabou tipsar om en god julklapp och ett erbjudande som passar n&auml;r du vill ge bort n&aring;got uppskattat.",
+                offer: "Veckans presentkupong p&aring; Marabou favoriter. 2000 kuponger finns i luckan.",
+                ctaHref: "produktsida.html"
+            },
+            4: {
+                label: "Guldfinalen",
+                date: "22-24 december",
+                title: "Vecka 4",
+                lead: "God Jul fr&aring;n Marabou. Fj&auml;rde advent &auml;r kalenderns stora guldfinal.",
+                body: "Marabou avslutar adventsveckorna med en extra god julh&auml;lsning och ett sista erbjudande.",
+                offer: "Finalkupong: 25 kr rabatt p&aring; utvalda Marabou produkter. 2000 kuponger finns i luckan.",
+                ctaHref: "erbjudande.html"
+            }
+        };
+
+        const params = new URLSearchParams(window.location.search);
+        const week = Number(params.get("week"));
+        const content = weeks[week] || weeks[1];
+
+        document.title = `${content.title} | Marabou veckoerbjudande`;
+        document.getElementById("eyebrow").textContent = `${content.title} / ${content.date}`;
+        document.getElementById("title").textContent = content.title;
+        document.getElementById("lead").innerHTML = content.lead;
+        document.getElementById("body-copy").innerHTML = content.body;
+        document.getElementById("offer-heading").innerHTML = content.label;
+        document.getElementById("offer-copy").innerHTML = content.offer;
+
+        const cta = document.getElementById("cta-link");
+        cta.href = `${content.ctaHref}?week=${content === weeks[week] ? week : 1}`;
+
+        document.getElementById("signup-preview").addEventListener("submit", (event) => {
+            event.preventDefault();
+        });
+    </script>
+</body>
+</html>

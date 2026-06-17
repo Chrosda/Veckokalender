@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marabou veckans present</title>
+    <style>
+        :root {
+            --bg: #ffd84d;
+            --ink: #111111;
+            --muted: #6a3a21;
+            --surface: #ffffff;
+            --accent: #cc2030;
+            --accent-dark: #17428c;
+            --line: rgba(75, 37, 24, 0.18);
+            --shadow: 0 24px 60px rgba(0, 0, 0, 0.08);
+            --body-font: "Plus Jakarta Sans", "Segoe UI", Arial, sans-serif;
+            --display-font: "Circular Pro", "Aptos", "Segoe UI", Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: var(--body-font);
+            color: var(--ink);
+            background: var(--bg);
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-bottom: 1px solid var(--line);
+            background: rgba(255, 248, 239, 0.92);
+            backdrop-filter: blur(12px);
+        }
+
+        .topbar-inner {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 18px 0;
+        }
+
+        .logo {
+            display: inline-grid;
+            gap: 5px;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            width: min(220px, 40vw);
+            height: auto;
+            object-fit: contain;
+        }
+
+        .logo span {
+            font-size: 0.72rem;
+            font-weight: 850;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #005745;
+        }
+
+        .nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+        }
+
+        .nav a {
+            color: var(--ink);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .page {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 36px 0 56px;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.02fr 0.98fr;
+            gap: 28px;
+            align-items: stretch;
+            margin-bottom: 28px;
+        }
+
+        .hero-card,
+        .form-card {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .hero-card {
+            overflow: hidden;
+        }
+
+        .hero-media {
+            display: grid;
+            place-items: center;
+            min-height: 100%;
+            padding: 34px;
+            background:
+                radial-gradient(circle at top right, rgba(255, 216, 77, 0.46), transparent 30%),
+                linear-gradient(180deg, #ffffff 0%, #fff0b8 100%);
+        }
+
+        .hero-media img {
+            width: min(420px, 100%);
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 24px 30px rgba(0, 0, 0, 0.12));
+        }
+
+        .hero-copy {
+            padding: 34px;
+            display: grid;
+            align-content: center;
+            gap: 16px;
+        }
+
+        .eyebrow {
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        h1 {
+            font-family: var(--display-font);
+            font-size: clamp(2.4rem, 5vw, 4.6rem);
+            line-height: 0.92;
+        }
+
+        .lead {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            line-height: 1.55;
+            color: #2a2a2a;
+        }
+
+        .price {
+            display: inline-flex;
+            width: fit-content;
+            align-items: center;
+            justify-content: center;
+            min-height: 54px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            background: var(--accent);
+            color: #ffffff;
+            font-family: var(--display-font);
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .form-card {
+            padding: 28px;
+            display: grid;
+            gap: 18px;
+        }
+
+        .section-title {
+            font-family: var(--display-font);
+            font-size: 1.5rem;
+        }
+
+        .field-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        label {
+            display: grid;
+            gap: 8px;
+            font-size: 0.92rem;
+            font-weight: 600;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #d9d1c7;
+            border-radius: 18px;
+            font: inherit;
+            background: #fff;
+        }
+
+        textarea {
+            min-height: 108px;
+            resize: vertical;
+        }
+
+        .consent {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            color: #292929;
+        }
+
+        .consent input {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            padding: 0;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .button,
+        .secondary-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 50px;
+            padding: 12px 20px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .button {
+            border: 0;
+            background: var(--ink);
+            color: white;
+        }
+
+        .secondary-button {
+            border: 1px solid #d9d1c7;
+            background: #fff;
+            color: var(--ink);
+        }
+
+        .button:hover,
+        .secondary-button:hover {
+            transform: translateY(-5px) scale(1.025);
+            box-shadow:
+                0 16px 28px rgba(0, 0, 0, 0.14),
+                0 0 22px rgba(215, 255, 95, 0.26);
+        }
+
+        .info-row {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 22px;
+        }
+
+        .info-card {
+            padding: 18px;
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.66);
+        }
+
+        .info-card h2 {
+            margin-bottom: 8px;
+            font-size: 0.92rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .info-card p {
+            color: #3d3d3d;
+            line-height: 1.55;
+        }
+
+        @media (max-width: 920px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .info-row {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar-inner {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="logo" href="index.html">
+                <img src="Clearon_Logo_Lime.png" alt="I samarbete med Clearon">
+                <span>I samarbete med Clearon</span>
+            </a>
+            <nav class="nav" aria-label="Huvudnavigation">
+                <a href="index.html">Kalendern</a>
+                <a href="produktsida.html?week=3">Marabou-present</a>
+                <a href="undersida.html?week=3">Kampanjsida</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page">
+        <section class="hero">
+            <article class="hero-card">
+                <div class="hero-media">
+                    <img id="product-image" src="marabou-logo-transparent.png" alt="Marabou">
+                </div>
+            </article>
+
+            <article class="hero-card">
+                <div class="hero-copy">
+                    <p class="eyebrow" id="eyebrow">Marabou julkalender</p>
+                    <h1 id="title">Vecka 3</h1>
+                    <p class="lead" id="lead">God Jul fr&aring;n Marabou. H&auml;r finns veckans presentkupong fr&aring;n julkalendern.</p>
+                    <div class="price" id="price">59 kr</div>
+                </div>
+            </article>
+        </section>
+
+        <section class="form-card">
+            <h2 class="section-title">Skicka presentkort</h2>
+            <div class="field-grid">
+                <label for="recipient-number">Mottagarens mobilnummer
+                    <input id="recipient-number" type="tel" placeholder="0701234567">
+                </label>
+                <label for="message">Personlig h&auml;lsning
+                    <textarea id="message" placeholder="Skriv en kort halsning till mottagaren."></textarea>
+                </label>
+                <label for="sender-name">Ditt namn
+                    <input id="sender-name" type="text" placeholder="Ditt namn">
+                </label>
+                <label for="sender-number">Ditt mobilnummer
+                    <input id="sender-number" type="tel" placeholder="0701234567">
+                </label>
+                <label for="sender-email">Din e-post
+                    <input id="sender-email" type="email" placeholder="namn@example.se">
+                </label>
+            </div>
+
+            <label class="consent" for="consent">
+                <input id="consent" type="checkbox">
+                <span>Jag godk&auml;nner villkoren f&ouml;r kampanjen. I samarbete med Clearon.</span>
+            </label>
+
+            <div class="actions">
+                <button class="button" type="button">K&ouml;p med Swish</button>
+                <button class="secondary-button" type="button">K&ouml;p med kort</button>
+                <a class="secondary-button" href="index.html">Tillbaka till kalendern</a>
+            </div>
+        </section>
+
+        <section class="info-row">
+            <article class="info-card">
+                <h2>Om veckoluckan</h2>
+                <p id="info-copy">Bakom den h&auml;r luckan ligger en julig Marabou-present med 2000 kuponger.</p>
+            </article>
+            <article class="info-card">
+                <h2>Leverans</h2>
+                <p>Presentkortet skickas digitalt till mottagaren och kan ers&auml;ttas med riktig checkout eller formul&auml;rkoppling i n&auml;sta steg.</p>
+            </article>
+            <article class="info-card">
+                <h2>Format</h2>
+                <p>Layouten &auml;r byggd f&ouml;r att efterlikna referensens produktkort, produktbild, prisfokus och formul&auml;rdriven CTA.</p>
+            </article>
+        </section>
+    </main>
+
+    <script>
+        const products = {
+            1: {
+                title: "Vecka 1",
+                lead: "God Jul fr&aring;n Marabou. Starta december med en produktn&auml;ra lucka.",
+                price: "35 kr",
+                info: "Vecka 1 kan anv&auml;ndas som enkel produkt- eller presentkortskampanj med 2000 kuponger."
+            },
+            2: {
+                title: "Vecka 2",
+                lead: "God Jul fr&aring;n Marabou. Fika och julst&auml;mning i veckans lucka.",
+                price: "49 kr",
+                info: "Vecka 2 visar hur kalendern kan kopplas till en s&auml;ljdriven Marabou-produktsida med 2000 kuponger."
+            },
+            3: {
+                title: "Vecka 3",
+                lead: "God Jul fr&aring;n Marabou. Veckans present med tydligt kupongerbjudande.",
+                price: "59 kr",
+                info: "Vecka 3 &auml;r byggd som den s&auml;ljigare luckan i veckovarianten, med 2000 kuponger."
+            },
+            4: {
+                title: "Vecka 4",
+                lead: "God Jul fr&aring;n Marabou. Finalveckans starka erbjudande.",
+                price: "79 kr",
+                info: "Vecka 4 kan anv&auml;ndas som kalenderns stora avslutande produkterbjudande med 2000 kuponger."
+            }
+        };
+
+        const params = new URLSearchParams(window.location.search);
+        const week = Number(params.get("week"));
+        const content = products[week] || products[3];
+
+        document.title = `${content.title} | Marabou veckans present`;
+        document.getElementById("eyebrow").textContent = "Marabou veckans present";
+        document.getElementById("title").textContent = content.title;
+        document.getElementById("lead").innerHTML = content.lead;
+        document.getElementById("price").textContent = content.price;
+        document.getElementById("info-copy").innerHTML = content.info;
+    </script>
+</body>
+</html>

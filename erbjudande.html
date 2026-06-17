@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anm&auml;l dig till Marabou veckoerbjudande</title>
+    <style>
+        :root {
+            --page-green: #4b2518;
+            --page-green-dark: #2a130d;
+            --page-lime: #ffd84d;
+            --page-cream: #f8f1e8;
+            --page-shadow: 0 32px 80px rgba(0, 0, 0, 0.28);
+            --body-font: "Plus Jakarta Sans", "Segoe UI", Arial, sans-serif;
+            --display-font: "Circular Pro", "Aptos", "Segoe UI", Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: var(--body-font);
+            color: white;
+            background:
+                linear-gradient(rgba(255, 216, 77, 0.28), rgba(75, 37, 24, 0.34)),
+                url("julkalender_unpacked/background.png") center center / cover no-repeat fixed;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+        }
+
+        .panel {
+            position: relative;
+            width: min(760px, 100%);
+            display: grid;
+            gap: 22px;
+            padding: 28px;
+            border-radius: 30px;
+            background:
+                linear-gradient(150deg, rgba(204, 32, 48, 0.74), rgba(75, 37, 24, 0.96)),
+                rgba(75, 37, 24, 0.97);
+            box-shadow: var(--page-shadow);
+            overflow: hidden;
+            animation: panel-float 6s ease-in-out infinite;
+        }
+
+        .panel::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(115deg, transparent 0 38%, rgba(248, 241, 232, 0.12) 50%, transparent 62%);
+            transform: translateX(-72%);
+            animation: panel-sheen 6.4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .panel > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .brand {
+            display: grid;
+            gap: 8px;
+            justify-content: center;
+            min-height: 74px;
+            margin-bottom: 2px;
+        }
+
+        .brand img {
+            width: min(260px, 76%);
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.18));
+        }
+
+        .partner-note {
+            font-size: 0.74rem;
+            font-weight: 850;
+            letter-spacing: 0.12em;
+            text-align: center;
+            text-transform: uppercase;
+            color: rgba(248, 241, 232, 0.78);
+        }
+
+        .eyebrow {
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            text-align: center;
+            color: rgba(248, 241, 232, 0.84);
+        }
+
+        h1 {
+            font-family: var(--display-font);
+            font-size: clamp(2rem, 4.8vw, 3.25rem);
+            line-height: 1;
+            text-align: center;
+            color: var(--page-cream);
+        }
+
+        .body-copy {
+            max-width: 620px;
+            margin-inline: auto;
+            font-size: 1rem;
+            line-height: 1.65;
+            text-align: center;
+            color: rgba(248, 241, 232, 0.9);
+        }
+
+        .limit-note {
+            width: fit-content;
+            max-width: 100%;
+            margin-inline: auto;
+            padding: 10px 16px;
+            border-radius: 999px;
+            background: rgba(248, 241, 232, 0.12);
+            border: 1px solid rgba(248, 241, 232, 0.26);
+            color: var(--page-cream);
+            font-size: 0.92rem;
+            font-weight: 800;
+            text-align: center;
+            box-shadow: inset 0 1px 0 rgba(248, 241, 232, 0.14);
+        }
+
+        form {
+            display: grid;
+            gap: 16px;
+            padding: 20px;
+            border-radius: 22px;
+            background: rgba(248, 241, 232, 0.08);
+            border: 1px solid rgba(248, 241, 232, 0.16);
+        }
+
+        .field {
+            display: grid;
+            gap: 8px;
+        }
+
+        label {
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(248, 241, 232, 0.82);
+        }
+
+        input {
+            width: 100%;
+            min-height: 52px;
+            padding: 13px 15px;
+            border: 1px solid rgba(248, 241, 232, 0.28);
+            border-radius: 14px;
+            background: rgba(248, 241, 232, 0.96);
+            color: var(--page-green-dark);
+            font: inherit;
+            font-size: 1rem;
+        }
+
+        input:focus {
+            outline: 3px solid rgba(217, 255, 99, 0.38);
+            border-color: var(--page-lime);
+        }
+
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            justify-content: center;
+        }
+
+        button,
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 50px;
+            padding: 12px 22px;
+            border-radius: 999px;
+            font: inherit;
+            font-weight: 800;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        button {
+            border: 0;
+            background: var(--page-lime);
+            color: var(--page-green-dark);
+        }
+
+        .back-link {
+            border: 1px solid rgba(248, 241, 232, 0.36);
+            background: rgba(248, 241, 232, 0.08);
+            color: var(--page-cream);
+        }
+
+        button:hover,
+        .back-link:hover {
+            transform: translateY(-5px) scale(1.025);
+            box-shadow:
+                0 18px 32px rgba(0, 0, 0, 0.26),
+                0 0 24px rgba(217, 255, 99, 0.18);
+        }
+
+        .success {
+            display: none;
+            padding: 16px;
+            border-radius: 18px;
+            background: rgba(217, 255, 99, 0.14);
+            border: 1px solid rgba(217, 255, 99, 0.36);
+            color: var(--page-cream);
+            line-height: 1.55;
+            text-align: center;
+        }
+
+        .success.is-visible {
+            display: block;
+        }
+
+        @keyframes panel-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes panel-sheen {
+            0%, 44% { transform: translateX(-72%); }
+            60%, 100% { transform: translateX(72%); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .panel,
+            .panel::before {
+                animation: none;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .page {
+                padding: 16px;
+            }
+
+            .panel {
+                padding: 22px 18px;
+                border-radius: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <article class="panel">
+            <div class="brand">
+                <img src="Clearon_Logo_White.png" alt="I samarbete med Clearon">
+                <span class="partner-note">I samarbete med Clearon</span>
+            </div>
+            <p class="eyebrow" id="eyebrow">Marabou julkalender</p>
+            <h1>God Jul fr&aring;n Marabou</h1>
+            <p class="body-copy">Skriv in ditt namn och telefonnummer f&ouml;r att ta del av veckans Marabou-kupong.</p>
+            <p class="limit-note">Varje lucka inneh&aring;ller 2000 kuponger.</p>
+            <form id="signup-form">
+                <div class="field">
+                    <label for="name">Namn</label>
+                    <input id="name" name="name" type="text" autocomplete="name" placeholder="Ditt namn" required>
+                </div>
+                <div class="field">
+                    <label for="phone">Telefonnummer</label>
+                    <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="070-123 45 67" required>
+                </div>
+                <div class="cta-row">
+                    <button type="submit">Skicka anm&auml;lan</button>
+                    <a class="back-link" id="back-link" href="undersida.html">Tillbaka</a>
+                </div>
+            </form>
+            <p class="success" id="success-message">Tack! Din intresseanm&auml;lan &auml;r registrerad i prototypen.</p>
+        </article>
+    </main>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const week = Number(params.get("week"));
+        const weekLabel = Number.isFinite(week) && week ? `Vecka ${week}` : "Marabou julkalender";
+
+        document.title = `${weekLabel} | Anmal dig`;
+        document.getElementById("eyebrow").textContent = weekLabel;
+        document.getElementById("back-link").href = `undersida.html?week=${Number.isFinite(week) && week ? week : ""}`;
+
+        const form = document.getElementById("signup-form");
+        const success = document.getElementById("success-message");
+
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            success.classList.add("is-visible");
+            form.reset();
+        });
+    </script>
+</body>
+</html>
